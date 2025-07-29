@@ -1,6 +1,7 @@
 // src/pages/FacultyPage.js
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { FiSearch, FiFilter } from 'react-icons/fi';
 
 const FacultyPage = () => {
   const [faculty, setFaculty] = useState([]);
@@ -11,7 +12,7 @@ const FacultyPage = () => {
   useEffect(() => {
     const fetchFaculty = async () => {
       try {
-        const response = await fetch('/api/faculty');
+        const response = await fetch('https://eduart-backend-1.onrender.com/api/faculty');
         const data = await response.json();
         setFaculty(data);
         setLoading(false);
@@ -20,17 +21,15 @@ const FacultyPage = () => {
         setLoading(false);
       }
     };
-
     fetchFaculty();
   }, []);
 
-  // Get unique departments for filter
-  const departments = ['all', ...new Set(faculty.map(f => f.department))];
+  const departments = ['all', ...new Set(faculty.map(f => f.department).filter(Boolean))];
 
-  // Filter faculty based on search and department
   const filteredFaculty = faculty.filter(f => {
-    const matchesSearch = f.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                         f.bio.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch =
+      f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      f.bio.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesDept = departmentFilter === 'all' || f.department === departmentFilter;
     return matchesSearch && matchesDept;
   });
@@ -44,83 +43,98 @@ const FacultyPage = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-center text-gray-800 mb-8">Our Esteemed Faculty</h1>
-      
-      {/* Search and Filter Section */}
-      <div className="mb-8 bg-white p-6 rounded-lg shadow-md">
-        <div className="flex flex-col md:flex-row gap-4">
-          <div className="flex-1">
-            <label htmlFor="search" className="block text-sm font-medium text-gray-700 mb-1">Search Faculty</label>
-            <input
-              type="text"
-              id="search"
-              placeholder="Search by name or expertise..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-            />
-          </div>
-          <div className="w-full md:w-64">
-            <label htmlFor="department" className="block text-sm font-medium text-gray-700 mb-1">Filter by Department</label>
-            <select
-              id="department"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-              value={departmentFilter}
-              onChange={(e) => setDepartmentFilter(e.target.value)}
-            >
-              {departments.map(dept => (
-                <option key={dept} value={dept}>
-                  {dept.charAt(0).toUpperCase() + dept.slice(1)}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-      </div>
+    <div className="bg-gray-50 min-h-screen py-10 px-4">
+      <div className="max-w-7xl mx-auto">
+        <h1 className="text-4xl font-bold text-center text-blue-900 mb-10">Meet Our Faculty</h1>
 
-      {/* Faculty Grid */}
-      {filteredFaculty.length === 0 ? (
-        <div className="text-center py-12">
-          <p className="text-xl text-gray-600">No faculty members found matching your criteria.</p>
-        </div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredFaculty.map((member) => (
-            <div key={member._id} className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-              <div className="relative h-48 bg-gray-200">
-                <img 
-                  src={member.image || '/images/default-faculty.jpg'} 
-                  alt={member.name}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent h-16"></div>
-                <span className="absolute bottom-2 left-2 px-2 py-1 bg-blue-600 text-white text-xs font-semibold rounded">
-                  {member.department}
-                </span>
-              </div>
-              <div className="p-6">
-                <h2 className="text-xl font-bold text-gray-800 mb-1">{member.name}</h2>
-                <p className="text-blue-600 font-medium mb-2">{member.position}</p>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">{member.bio}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {member.expertise?.slice(0, 3).map((skill, index) => (
-                    <span key={index} className="px-2 py-1 bg-gray-100 text-gray-800 text-xs rounded-full">
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-                <Link 
-                  to={`/faculty/${member._id}`}
-                  className="inline-block px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors duration-300 text-sm font-medium"
-                >
-                  View Profile
-                </Link>
-              </div>
+        {/* Search & Filter */}
+        <div className="bg-white p-6 rounded-xl shadow-lg mb-10">
+          <div className="flex flex-col md:flex-row gap-6">
+            <div className="flex-1">
+              <label htmlFor="search" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                <FiSearch /> Search Faculty
+              </label>
+              <input
+                type="text"
+                id="search"
+                placeholder="Search by name or bio..."
+                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
             </div>
-          ))}
+            <div className="w-full md:w-64">
+              <label htmlFor="department" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
+                <FiFilter /> Filter by Department
+              </label>
+              <select
+                id="department"
+                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                value={departmentFilter}
+                onChange={(e) => setDepartmentFilter(e.target.value)}
+              >
+                {departments.map((dept) => (
+                  <option key={dept} value={dept}>
+                    {dept.charAt(0).toUpperCase() + dept.slice(1)}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
         </div>
-      )}
+
+        {/* Faculty Grid */}
+        {filteredFaculty.length === 0 ? (
+          <div className="text-center py-20">
+            <p className="text-xl text-gray-600">No faculty members found matching your criteria.</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6  gap-8">
+            {filteredFaculty.map((member) => (
+              <div
+                key={member._id}
+                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-2 "
+              >
+                {/* Avatar */}
+                <div className="flex justify-center mb-4">
+                  <img
+                    src={
+                      member.image ||
+                      'https://cdn-kddab.nitrocdn.com/jKlcdcYWKYsIXrwxXhnfSRAEYtdjIraN/assets/images/optimized/rev-9eaf8e2/waco-dental.com/wp-content/uploads/sites/388/2022/07/Dental-hygienist-and-dentist-with-patient-768x512.jpg.optimal.jpg'
+                    }
+                    alt={member.name}
+                    className="w-28 h-28 object-cover rounded-full border-4 border-blue-500 shadow-lg"
+                  />
+                </div>
+
+                {/* Info */}
+                <h2 className="text-xl font-bold text-gray-800 text-center">{member.name}</h2>
+                <p className="text-blue-600 text-sm font-medium text-center mb-2">{member.position}</p>
+                <p className="text-gray-600 text-sm text-center mb-3 line-clamp-3">{member.bio}</p>
+
+                {/* Expertise */}
+                {member.expertise?.length > 0 && (
+                  <div className="flex flex-wrap justify-center gap-2 mt-2">
+                    {member.expertise.slice(0, 3).map((skill, idx) => (
+                      <span key={idx} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                )}
+
+                {/* Optional Links (Placeholder) */}
+                {/* 
+                <div className="mt-4 flex justify-center gap-4 text-gray-400">
+                  <a href="#"><FiLinkedin /></a>
+                  <a href="#"><FiMail /></a>
+                </div> 
+                */}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

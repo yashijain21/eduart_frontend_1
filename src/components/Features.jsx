@@ -6,6 +6,7 @@ const FeatureCard = ({ Icon, title, description, delay }) => {
       className="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-500 border border-gray-100" 
       data-aos="fade-up" 
       data-aos-delay={delay}
+      id="about"
     >
       <div className="text-primary text-4xl mb-6">
         <div className="bg-primary bg-opacity-10 w-16 h-16 rounded-full flex items-center justify-center">
