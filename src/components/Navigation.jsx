@@ -23,7 +23,7 @@ const Navigation = ({ color = "bg-transparent" }) => {
       <div className="hidden lg:flex items-center space-x-8 font-medium text-base">
         <Link to="/" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hove:font-semibold hover:bg-white hover:shadow-md p-1 px-4">Home</Link>
         <Link to="/AllCoursePage" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hove:font-semibold hover:bg-white hover:shadow-md p-1 px-4">Courses</Link>
-        <a href="/faculty" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hove:font-semibold hover:bg-white hover:shadow-md p-1 px-4">Faculty</a>
+        <Link to="/faculty" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hove:font-semibold hover:bg-white hover:shadow-md p-1 px-4">Faculty</Link>
        <HashLink smooth to="#testimonials" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hover:font-semibold hover:bg-white hover:shadow-md p-1 px-4">
   Success Stories
 </HashLink>
@@ -48,7 +48,7 @@ const Navigation = ({ color = "bg-transparent" }) => {
       <div className="lg:hidden space-y-4 pb-6 pt-4 border-t border-gray-300 text-center font-medium text-white bg-black">
         <Link to="/" className="block hover:text-primary">Home</Link>
         <Link to="/AllCoursePage" className="block hover:text-primary">Courses</Link>
-        <Link href="/faculty" className="block hover:text-primary">Faculty</Link>
+        <Link to="/faculty" className="block hover:text-primary">Faculty</Link>
        <HashLink smooth to="#testimonials" className="rounded-sm hover:text-[#8a0d16] transition duration-300 hover:rounded-sm hover:font-semibold hover:bg-white hover:shadow-md p-1 px-4">
   Success Stories
 </HashLink>

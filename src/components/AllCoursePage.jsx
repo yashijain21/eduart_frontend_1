@@ -87,15 +87,15 @@ const AllCoursesPage = () => {
 
   return (
 <>
-<Navigation color="bg-[#960000]" />
-    <section className="bg-gray-50 mt-30">
+<Navigation />
+    <section className="bg-gray-700 relative">
       
       
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16" data-aos="fade-up">
+      <div className="p-20 mx-auto px-10">
+        <div className="text-center mb-16 " data-aos="fade-up">
           <span className="inline-block bg-primary bg-opacity-10 text-white font-semibold px-4 py-1 mt-7 rounded-full mb-4">COURSES</span>
-          <h2 className="text-3xl md:text-4xl font-bold text-dark mb-4">Master Your Specialty</h2>
-          <p className="text-gray-600 max-w-2xl mx-auto">Comprehensive programs designed by experts to take your clinical skills to the next level.</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Master Your Specialty</h2>
+          <p className="text-gray-400 max-w-2xl mx-auto">Comprehensive programs designed by experts to take your clinical skills to the next level.</p>
         </div>
 
         {loading ? (
