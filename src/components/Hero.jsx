@@ -1,53 +1,76 @@
-import React from 'react';
-import { FaGraduationCap } from 'react-icons/fa';
-import { FaPlay } from 'react-icons/fa6';
-import Promotion from '../assets/promotion.png'
-const Hero = () => {
+import React, { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/effect-fade";
+import { TypeAnimation } from "react-type-animation";
+import hero1 from "../assets/hero1.jpg";
+const slides = [
+  {
+    image: hero1,
+    text: "Master Modern Dentistry Techniques",
+  },
+  {
+    image: "https://plus.unsplash.com/premium_photo-1661295718975-319c131ddd9c?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    text: "Get Hands-on Dental Clinical Skills",
+  },
+  {
+    image: "https://media.istockphoto.com/id/583848866/photo/dental-prosthesis-dentures-prosthetics-work.webp?a=1&b=1&s=612x612&w=0&k=20&c=2N2ZO6b34JH5vm2BdnrYw_hPKVZUk4BH7GuSxBgrIzM=",
+    text: "Learn with Cutting-edge Dental Tools",
+  },
+];
+
+const TechSlider = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+
   return (
-    <section className="relative h-[120vh] p-10 flex items-center justify-center overflow-hidden lora-regular">
-      {/* Background Image */}
-      <div
-        className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${Promotion})`,
-        }}
+
+    <div className="w-full h-[100vh] overflow-hidden noto-sans">
+ 
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        loop={true}
+        autoplay={{ delay: 5000 }}
+        className="w-full h-full"
+        onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+      >
+        {slides.map((slide, index) => (
+          <SwiperSlide key={index}>
+            <div
+              className="w-full h-full flex items-center justify-center relative"
+              style={{
+                backgroundImage: `url(${slide.image})`,
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+                animation: "slideIn 1s forwards",
+              }}
+            >
+             <div className="absolute inset-0">
+  {/* Red top overlay */}
+  <div className="absolute top-0 left-0 w-full h-full bg-black/30 z-10"></div>
+
+  {/* Black transparent overlay for whole slide */}
+  <div className="absolute inset-0 bg-black/50 flex items-center justify-center z-20">
+    {index === activeIndex && (
+      <TypeAnimation
+        sequence={[slide.text, 1000]}  
+        wrapper="h1"
+        cursor={true}
+        repeat={0}
+        className="text-white text-3xl md:text-5xl font-bold text-center px-4"
+        key={activeIndex}
       />
+    )}
+  </div>
+</div>
 
-      {/* Dark Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#973434] to-[#ffccce]/30 z-0"></div>
-
-      {/* Content */}
-      <div className="container relative z-10 text-white px-6 text-center max-w-4xl" data-aos="fade-up">
-        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold mb-6 leading-tight tracking-tight">
-          Elevate Your <span className="text-white">Dental Practice</span> <br /> with <span className="text-white">Advanced Training</span>
-        </h1>
-        <p className="text-lg md:text-xl text-gray-200 mb-8">
-          Join India’s premier dental education platform offering hands-on training from top faculty & world-class facilities.
-        </p>
-
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row justify-center gap-4">
-        <a
-  href="#"
-  className="bg-yellow-400  phone-wiggle text-black font-semibold px-8 py-4 rounded-full"
->
-  Explore Courses
-</a>
-          <a
-            href="#"
-            className="group phone-wiggle relative inline-flex items-center justify-center overflow-hidden rounded-full border-2 border-white px-8 py-4 font-semibold text-white transition hover:bg-white hover:text-black duration-300"
-          >
-            <span className="flex items-center gap-2">
-              <FaPlay className="animate-pulse group-hover:animate-none" /> Watch Video
-            </span>
-          </a>
-        </div>
-      </div>
-
-      {/* Bottom Stat Badge */}
-      
-    </section>
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
 };
 
-export default Hero;
+export default TechSlider;

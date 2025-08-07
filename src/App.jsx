@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-
+import  WorkshopDetail  from './components/WorkshopDetail';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import {Route, Routes} from 'react-router-dom'
@@ -33,7 +33,7 @@ function App() {
 <Route path='OrthodonticsCoursePage' element={<OrthodonticsCoursePage/>}/>
 <Route path='SuccessStories' element={<SuccessStories/>}/>
 <Route path="/faculty" element={<FacultyPage />} />
-
+<Route path="/workshops/:id" element={<WorkshopDetail />} />
 {/* <Route path="/faculty/:id" element={<FacultyDetail />} /> */}
 <Route path="/admin" element={<AdminLayout />}>
     <Route index element={<Dashboard />} />

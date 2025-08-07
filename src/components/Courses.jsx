@@ -53,7 +53,7 @@ const Courses = () => {
   }, []);
 
   return (
-    <section className="py-20 lora-regular">
+    <section className="py-20 noto-sans">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16" data-aos="fade-up">
           <span className="inline-block bg-primary bg-opacity-10 text-white font-semibold px-4 py-1 rounded-full mb-4">COURSES</span>

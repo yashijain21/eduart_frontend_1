@@ -1,6 +1,24 @@
 @import "tailwindcss";
 
 /* ------------ Custom Colors as Utility Classes ------------ */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 .text-primary {
   @apply text-[#e30613];
 }
@@ -79,19 +97,18 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
-.ancizar-serif-regular {
-  font-family: "Ancizar Serif", serif;
+
+
+
+.noto-sans{
+  font-family: "Noto Sans", sans-serif;
   font-optical-sizing: auto;
-  font-weight: 600;
+  font-weight: 400;
   font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
 }
 
-.lora-regular {
-  font-family: "Lora", serif;
-  font-optical-sizing: auto;
-  font-weight: weight;
-  font-style: normal;
-}
 @keyframes phone-ring {
   0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 230, 0, 0.7); }
   70% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 230, 0, 0); }

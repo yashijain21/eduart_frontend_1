@@ -3,7 +3,7 @@ import { FaPhoneAlt, FaEnvelope, FaFacebookF, FaInstagram, FaLinkedinIn, FaYoutu
 
 const TopBar = () => {
   return (
-    <div className="bg-gray-800 text-white text-sm py-2 px-4 hidden md:block lora-regular">
+    <div className="bg-[#0b1d3a] text-white text-sm py-2 px-4 hidden md:block noto-sans">
       <div className="container mx-auto flex justify-between items-center">
         <div className="flex space-x-6">
           <a href="tel:+919876543210" className="flex items-center hover:text-primary transition-colors">

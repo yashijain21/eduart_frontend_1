@@ -1,142 +1,109 @@
-// src/pages/FacultyPage.js
-import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { FiSearch, FiFilter } from 'react-icons/fi';
+import React from "react";
+import Navigation from "./Navigation";
+import Footer from "./Footer";
+import { FaFacebookF, FaTwitter, FaInstagram } from "react-icons/fa";
+import { motion } from "framer-motion";
 
-const FacultyPage = () => {
-  const [faculty, setFaculty] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState('');
-  const [departmentFilter, setDepartmentFilter] = useState('all');
+import doc1 from "../assets/Dr.nikhil.jpg";
+import doc2 from "../assets/Dr.Sheetal.jpg";
 
-  useEffect(() => {
-    const fetchFaculty = async () => {
-      try {
-        const response = await fetch('https://eduart-backend-1.onrender.com/api/faculty');
-        const data = await response.json();
-        setFaculty(data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching faculty:', error);
-        setLoading(false);
-      }
-    };
-    fetchFaculty();
-  }, []);
+const facultyData = [
+  {
+    id: 1,
+    name: "Dr. Nikhil Bahuguna",
+    title: "Endodontist",
+    description:
+      "Graduated from BVP Pune in 2001, pursued MDS in Conservative Dentistry and Endodontics in 2004 from Bapuji Dental College. Specializes in MicroEndodontics, Cosmetic Dentistry, Root Canal and Repeat Root Canal treatments.",
+    image: doc1,
+  },
+  {
+    id: 2,
+    name: "Dr. Sachindeep Singh",
+    title: "Orthodontics Specialist",
+    description:
+      "With 23 years of experience, Dr. Singh specialises in Acrylic Partial Denture, Impaction Extraction, BPS Dentures, Crowns and more.",
+    image:
+      "https://oracarecosmeticdental.com/wp-content/uploads/2022/05/mugshot-Dr-Sachindeep-Singh.jpg",
+  },
+  {
+    id: 3,
+    name: "Dr. Sheetal Sahunja",
+    title: "Endodontics Consultant",
+    description:
+      "25 years of expertise in cosmetic and aesthetic dentistry. Practices at The Dentist, Lajpat Nagar, Delhi.",
+    image: doc2,
+  },
+];
 
-  const departments = ['all', ...new Set(faculty.map(f => f.department).filter(Boolean))];
-
-  const filteredFaculty = faculty.filter(f => {
-    const matchesSearch =
-      f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      f.bio.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDept = departmentFilter === 'all' || f.department === departmentFilter;
-    return matchesSearch && matchesDept;
-  });
-
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
-  }
-
+const Faculty = () => {
   return (
-    <div className="bg-gray-50 min-h-screen py-10 px-4">
-      <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center text-blue-900 mb-10">Meet Our Faculty</h1>
+    <>
+      <Navigation color="bg-black" />
 
-        {/* Search & Filter */}
-        <div className="bg-white p-6 rounded-xl shadow-lg mb-10">
-          <div className="flex flex-col md:flex-row gap-6">
-            <div className="flex-1">
-              <label htmlFor="search" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiSearch /> Search Faculty
-              </label>
-              <input
-                type="text"
-                id="search"
-                placeholder="Search by name or bio..."
-                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
-            </div>
-            <div className="w-full md:w-64">
-              <label htmlFor="department" className="text-sm font-semibold text-gray-700 flex items-center gap-2">
-                <FiFilter /> Filter by Department
-              </label>
-              <select
-                id="department"
-                className="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:outline-none"
-                value={departmentFilter}
-                onChange={(e) => setDepartmentFilter(e.target.value)}
+      <section className="pt-40 py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4">
+         <motion.h2
+  className="text-4xl font-bold text-[#960300] mb-10 text-center"
+  initial={{ x: -100, opacity: 0 }}
+  whileInView={{ x: 0, opacity: 1 }}
+  viewport={{ once: true }}
+  transition={{ duration: 0.8, ease: "easeOut" }}
+>
+  Meet The Faculty
+</motion.h2>
+          <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+            {facultyData.map((faculty, index) => (
+              <motion.div
+                key={faculty.id}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition"
               >
-                {departments.map((dept) => (
-                  <option key={dept} value={dept}>
-                    {dept.charAt(0).toUpperCase() + dept.slice(1)}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-        </div>
-
-        {/* Faculty Grid */}
-        {filteredFaculty.length === 0 ? (
-          <div className="text-center py-20">
-            <p className="text-xl text-gray-600">No faculty members found matching your criteria.</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6  gap-8">
-            {filteredFaculty.map((member) => (
-              <div
-                key={member._id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-shadow duration-300 p-2 "
-              >
-                {/* Avatar */}
-                <div className="flex justify-center mb-4">
+                {/* faculty image */}
+                <div className="relative">
                   <img
-                    src={
-                      member.image ||
-                      'https://cdn-kddab.nitrocdn.com/jKlcdcYWKYsIXrwxXhnfSRAEYtdjIraN/assets/images/optimized/rev-9eaf8e2/waco-dental.com/wp-content/uploads/sites/388/2022/07/Dental-hygienist-and-dentist-with-patient-768x512.jpg.optimal.jpg'
-                    }
-                    alt={member.name}
-                    className="w-28 h-28 object-cover rounded-full border-4 border-blue-500 shadow-lg"
+                    src={faculty.image}
+                    alt={faculty.name}
+                    className="w-full h-64 object-cover"
                   />
+                  {/* badge */}
+                  <div
+                    className={`absolute bottom-0 left-4 transform translate-y-1/2 bg-[#960300] text-white px-4 py-2 rounded-full flex items-center shadow`}
+                  >
+                    <span className="bg-white text-[#960300] rounded-full w-8 h-8 flex items-center justify-center mr-2 font-bold">
+                      {index + 1}
+                    </span>
+                    <div className="text-left">
+                      <div className="font-semibold text-sm">{faculty.name}</div>
+                      <div className="text-xs">{faculty.title}</div>
+                    </div>
+                  </div>
                 </div>
 
-                {/* Info */}
-                <h2 className="text-xl font-bold text-gray-800 text-center">{member.name}</h2>
-                <p className="text-blue-600 text-sm font-medium text-center mb-2">{member.position}</p>
-                <p className="text-gray-600 text-sm text-center mb-3 line-clamp-3">{member.bio}</p>
-
-                {/* Expertise */}
-                {member.expertise?.length > 0 && (
-                  <div className="flex flex-wrap justify-center gap-2 mt-2">
-                    {member.expertise.slice(0, 3).map((skill, idx) => (
-                      <span key={idx} className="bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-full">
-                        {skill}
-                      </span>
-                    ))}
+                {/* description */}
+                <div className="p-6 text-center">
+                  
+                  <p className="text-gray-600 text-sm mb-4 mt-5">
+                    {faculty.description}
+                  </p>
+                  {/* social icons */}
+                  <div className="flex justify-center gap-4 text-[#960300] text-lg mt-2">
+                    <FaFacebookF className="hover:text-gray-700 cursor-pointer transition" />
+                    <FaTwitter className="hover:text-gray-700 cursor-pointer transition" />
+                    <FaInstagram className="hover:text-gray-700 cursor-pointer transition" />
                   </div>
-                )}
-
-                {/* Optional Links (Placeholder) */}
-                {/* 
-                <div className="mt-4 flex justify-center gap-4 text-gray-400">
-                  <a href="#"><FiLinkedin /></a>
-                  <a href="#"><FiMail /></a>
-                </div> 
-                */}
-              </div>
+                </div>
+              </motion.div>
             ))}
           </div>
-        )}
-      </div>
-    </div>
+        </div>
+      </section>
+
+      <Footer />
+    </>
   );
 };
 
-export default FacultyPage;
+export default Faculty;

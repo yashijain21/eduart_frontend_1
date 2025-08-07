@@ -1,36 +1,39 @@
-import React from 'react';
+import React from "react";
 
-const CTA = () => {
+const Contents = () => {
+  const items = [
+    { id: "01", name: "Dr. Garima", location: "Noida", color: "bg-yellow-300" },
+    { id: "02", name: "Mr. Nitin Jain", location: "Noida", color: "bg-gray-400" },
+    { id: "03", name: "Mr. Kushagra", location: "Noida", color: "bg-amber-200" },
+    { id: "04", name: "Mrs. Khushboo", location: "Agra", color: "bg-rose-300" },
+    { id: "05", name: "Mr. Girraj Verma", location: "Agra", color: "bg-slate-500" },
+  ];
+
   return (
-    <section className=" lora-regular relative py-24  text-white overflow-hidden">
-      <div className="absolute inset-0 z-0">
-  {/* Background Image */}
-  <img 
-    src="https://images.unsplash.com/photo-1647911780648-5252a6acdc9b?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8ZGVudGFsJTIwcmVkJTIwYmFja2dyb3VuZHxlbnwwfHwwfHx8MA%3D%3D" 
-    alt="Dental Background" 
-    className="w-full h-full object-cover"
-  />
-
-  {/* Black Overlay */}
-  <div className="absolute inset-0 bg-black/40"></div>
-</div>
-
-      <div className="container mx-auto px-4 relative z-10 ">
-        <div className="max-w-3xl mx-auto text-center" data-aos="zoom-in">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Ready to Transform Your Dental Practice?</h2>
-          <p className="text-lg mb-8 opacity-90">Limited seats available for our upcoming batches. Reserve your spot today.</p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#" className="bg-white hover:bg-gray-100 text-dark font-bold py-4 px-8 rounded-full transition duration-300 shadow-lg hover:shadow-xl flex items-center justify-center">
-              <i className="fas fa-phone-alt mr-2"></i> Call for Admission
-            </a>
-            <a href="#" className="bg-white hover:bg-gray-100 text-dark font-bold py-4 px-8 rounded-full transition duration-300 flex items-center justify-center">
-              <i className="fas fa-download mr-2"></i> Download Brochure
-            </a>
+    <div className="bg-[#f9f9f4] min-h-screen p-8 font-serif">
+      <h1 className="text-4xl mb-12">contents.</h1>
+      <div className="flex gap-10">
+        {items.map((item) => (
+          <div key={item.id} className="flex flex-col items-center relative">
+            {/* number */}
+            <span className="text-4xl font-bold mb-2">{item.id}</span>
+            {/* colored vertical bar with vertical name */}
+            <div className={`relative w-6 h-64 ${item.color}`}>
+              <span className="absolute left-3 -translate-x-1/2 top-30 text-sm rotate-90 whitespace-nowrap">
+                {item.name}
+              </span>
+              <span className="absolute left-1/2 -translate-x-1/2 bottom-8 text-xs rotate-90 whitespace-nowrap">
+                [{item.location}]
+              </span>
+            </div>
           </div>
-        </div>
+        ))}
       </div>
-    </section>
+      <p className="text-xs mt-8 max-w-md">
+        This compilation consists of profiles from various locations listed in 2025.
+      </p>
+    </div>
   );
 };
 
-export default CTA;
+export default Contents;

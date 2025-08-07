@@ -14,7 +14,7 @@ import Logo from '../assets/logo1.png'
 
 const Footer = () => {
   return (
-    <footer className="lora-regular bg-gray-900 text-white pt-16 pb-8">
+    <footer className="noto-sans bg-gray-900 text-white pt-16 pb-8">
       <div className="container mx-auto px-4">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10 mb-12">
           {/* Company Info */}

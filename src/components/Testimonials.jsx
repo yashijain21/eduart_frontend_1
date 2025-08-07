@@ -35,7 +35,7 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section className="py-20 lora-regular" id="testimonials">
+    <section className="py-20 noto-sans" id="testimonials">
       <div className="container mx-auto px-4">
         {/* Section Heading */}
         <div className="text-center mb-16" data-aos="fade-up">
