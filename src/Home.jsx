@@ -12,7 +12,7 @@ import Why from './assets/Why';
 import Tillnow from './components/Tillnow';
 import './index.css'
 import DentalBenefits from './components/DentalBenifits';
-import AboutSection from './components/about';
+import AboutSection from './components/About';
 import UpcomingWorkshops from './components/Upcomingevents';
 
 <style>
