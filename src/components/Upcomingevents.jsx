@@ -3,7 +3,7 @@ import React, { useRef } from "react";
 import img1 from "../assets/Endodontics.jpg";
 import img2 from "../assets/FMR-1.jpg";
 import img3 from "../assets/implants.jpg";
-import img4 from "../assets/Ortho.jpg";
+import img4 from "../assets/ortho.jpg";
 import img5 from "../assets/restorative.jpg";
 const workshops = [
   {
