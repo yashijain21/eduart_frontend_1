@@ -60,7 +60,7 @@ const Header = ({ color = 'bg-[#960000]' }) => {
 
         {/* Navigation */}
         <nav className={`w-full ${color} text-white`}>
-          <div className=" mx-auto px-4 py-2 flex justify-between items-center">
+          <div className=" px-4 py-2 flex justify-between items-center">
             {/* Logo */}
             <Link to="/" className="flex-shrink-0">
               <img src={logo} alt="Eduart Logo" className="w-32 sm:w-36 h-auto" />
@@ -84,7 +84,7 @@ const Header = ({ color = 'bg-[#960000]' }) => {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden w-screen bg-black text-white py-6 space-y-4 text-center text-sm font-medium">
+            <div className="lg:hidden w-[360px] bg-black text-white py-6 space-y-4 text-center text-sm font-medium">
               <Link to="/" onClick={toggleMobileMenu} className="block hover:text-[#e30613]">Home</Link>
               <Link to="/AllCoursePage" onClick={toggleMobileMenu} className="block hover:text-[#e30613]">Courses</Link>
               <Link to="/faculty" onClick={toggleMobileMenu} className="block hover:text-[#e30613]">Faculty</Link>
